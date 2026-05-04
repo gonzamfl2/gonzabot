@@ -1,4 +1,4 @@
-Gonza Bot v1.0.0
+Gonza Bot
 La verdad el bot quedo medio feo pero pues hago esto por los que me conocen jaja, pero ahora si
 
 Tipos de comandos
