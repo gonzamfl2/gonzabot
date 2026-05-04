@@ -8,7 +8,6 @@ import datetime
 
 load_dotenv()
 
-GUILD_ID = discord.Object(id=1492698037443756082)
 
 class Client(commands.Bot):
     async def on_ready(self):
@@ -23,13 +22,7 @@ class Client(commands.Bot):
         )
 
     async def setup_hook(self):
-        # limpiar SOLO el guild (lo más seguro)
-        self.tree.clear_commands(guild=GUILD_ID)
-        await self.tree.sync(guild=GUILD_ID)
 
-        print("Guild limpiado")
-
-    # luego sync global normal
     synced = await self.tree.sync()
     print(f"Sincronizados {len(synced)} comandos.")
         synced = await self.tree.sync()
