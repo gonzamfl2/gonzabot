@@ -8,35 +8,33 @@ import datetime
 
 load_dotenv()
 
-
-
+GUILD_ID = discord.Object(id=1492698037443756082)
 
 class Client(commands.Bot):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
 
         await self.change_presence(
-            status=discord.Status.dnd,  # 🔴 No molestar
+            status=discord.Status.dnd,
             activity=discord.Activity(
                 type=discord.ActivityType.watching,
                 name="Servidor de Gonza MFL II"
             )
         )
 
-GUILD_ID = discord.Object(id=1492698037443756082)
+    async def setup_hook(self):
+        await self.tree.clear_commands(guild=GUILD_ID)
+        await self.tree.sync(guild=GUILD_ID)
 
-async def setup_hook(self):
-    await self.tree.clear_commands(guild=GUILD_ID)
-    await self.tree.sync(guild=GUILD_ID)
-
-    synced = await self.tree.sync()
-    print(f"Sincronizados {len(synced)} comandos.")
-            
+        synced = await self.tree.sync()
+        print(f"Sincronizados {len(synced)} comandos.")
 
     async def on_message(self, message):
         if message.author == self.user:
             return
         await self.process_commands(message)
+
+
 
 intents = discord.Intents.default()
 intents.message_content = True
