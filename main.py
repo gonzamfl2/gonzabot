@@ -22,12 +22,12 @@ class Client(commands.Bot):
             )
         )
 
-async def setup_hook(self):
-    # limpiar SOLO el guild (lo más seguro)
-    self.tree.clear_commands(guild=GUILD_ID)
-    await self.tree.sync(guild=GUILD_ID)
+    async def setup_hook(self):
+        # limpiar SOLO el guild (lo más seguro)
+        self.tree.clear_commands(guild=GUILD_ID)
+        await self.tree.sync(guild=GUILD_ID)
 
-    print("Guild limpiado")
+        print("Guild limpiado")
 
     # luego sync global normal
     synced = await self.tree.sync()
