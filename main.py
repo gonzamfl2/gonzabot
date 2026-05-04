@@ -8,11 +8,6 @@ import datetime
 
 load_dotenv()
 
-raid_joins = {}
-raid_messages = {}
-RAID_JOIN_LIMIT = 5      # usuarios en X segundos
-RAID_MSG_LIMIT = 7       # mensajes en X segundos
-TIME_WINDOW = 5          # segundos
 
 
 
@@ -28,12 +23,14 @@ class Client(commands.Bot):
             )
         )
 
-    async def setup_hook(self):
-        try:
-            synced = await self.tree.sync()
-            print(f"Sincronizados {len(synced)} comandos.")
-        except Exception as e:
-            print(e)
+GUILD_ID = discord.Object(id=1492698037443756082)
+
+async def setup_hook(self):
+    await self.tree.clear_commands(guild=GUILD_ID)
+    await self.tree.sync(guild=GUILD_ID)
+
+    synced = await self.tree.sync()
+    print(f"Sincronizados {len(synced)} comandos.")
             
 
     async def on_message(self, message):
