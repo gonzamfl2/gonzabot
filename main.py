@@ -23,7 +23,7 @@ class Client(commands.Bot):
         )
 
     async def setup_hook(self):
-        await self.tree.clear_commands(guild=GUILD_ID)
+        self.tree.clear_commands(guild=GUILD_ID)
         await self.tree.sync(guild=GUILD_ID)
 
         synced = await self.tree.sync()
