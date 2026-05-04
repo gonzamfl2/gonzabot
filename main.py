@@ -63,11 +63,12 @@ async def kick_error(interaction: discord.Interaction, error):
         await interaction.response.send_message("No tenés permisos.", ephemeral=True)
 
 
+@app_commands.checks.has_permissions(manage_messages=True)
+@client.tree.command(name="clear", description="Borra mensajes")
 async def clear(interaction: discord.Interaction, cantidad: int):
     await interaction.response.defer(ephemeral=True)
     deleted = await interaction.channel.purge(limit=cantidad)
     await interaction.followup.send(f"🧹 {len(deleted)} mensajes borrados")
-
 
 
 @app_commands.checks.has_permissions(ban_members=True)
