@@ -8,20 +8,13 @@ import datetime
 
 load_dotenv()
 
-raid_joins = {}
-raid_messages = {}
-RAID_JOIN_LIMIT = 5      # usuarios en X segundos
-RAID_MSG_LIMIT = 7       # mensajes en X segundos
-TIME_WINDOW = 5          # segundos
-
-
 
 class Client(commands.Bot):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
 
         await self.change_presence(
-            status=discord.Status.dnd,  # 🔴 No molestar
+            status=discord.Status.dnd,
             activity=discord.Activity(
                 type=discord.ActivityType.watching,
                 name="Servidor de Gonza MFL II"
