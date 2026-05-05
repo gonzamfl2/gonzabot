@@ -122,10 +122,55 @@ async def userinfo(interaction: discord.Interaction, user: discord.Member):
 @client.tree.command(name="serverinfo", description="Info del servidor")
 async def serverinfo(interaction: discord.Interaction):
     guild = interaction.guild
-    await interaction.response.send_message(
-        f"Servidor: {guild.name}\nMiembros: {guild.member_count}"
+
+    embed = discord.Embed(
+        title=f"📊 Información del servidor",
+        description=f"**{guild.name}**",
+        color=discord.Color.blurple()
     )
 
+    embed.set_thumbnail(url=guild.icon.url if guild.icon else None)
+
+    embed.add_field(
+        name="🆔 ID",
+        value=guild.id,
+        inline=True
+    )
+
+    embed.add_field(
+        name="👥 Miembros",
+        value=guild.member_count,
+        inline=True
+    )
+
+    embed.add_field(
+        name="👑 Owner",
+        value=guild.owner.mention if guild.owner else "Desconocido",
+        inline=True
+    )
+
+    embed.add_field(
+        name="📅 Creado",
+        value=guild.created_at.strftime("%d/%m/%Y"),
+        inline=True
+    )
+
+    embed.add_field(
+        name="💬 Canales",
+        value=len(guild.channels),
+        inline=True
+    )
+
+    embed.add_field(
+        name="🔐 Roles",
+        value=len(guild.roles),
+        inline=True
+    )
+
+    embed.set_footer(text=f"Solicitado por {interaction.user}", icon_url=interaction.user.display_avatar.url)
+
+    await interaction.response.send_message(embed=embed)
+    
 # =====================
 # FUN
 # =====================
