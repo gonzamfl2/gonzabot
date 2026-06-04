@@ -39,6 +39,32 @@ intents.message_content = True
 
 client = Client(command_prefix="!", intents=intents)
 
+@client.event
+async def on_guild_channel_delete(channel):
+    guild = channel.guild
+
+    async for entry in guild.audit_logs(
+        limit=3,
+        action=discord.AuditLogAction.channel_delete
+    ):
+        usuario = entry.user
+
+        ahora = time.time()
+        eliminaciones[usuario.id].append(ahora)
+
+        # Mantener solo los últimos 10 segundos
+        eliminaciones[usuario.id] = [
+            t for t in eliminaciones[usuario.id]
+            if ahora - t <= 10
+        ]
+
+        # Si elimina 3 o más canales en 10 segundos
+        if len(eliminaciones[usuario.id]) >= 3:
+            await guild.ban(
+                usuario,
+                reason="Anti-raid: eliminación masiva de canales"
+            )
+
 # =====================
 # MODERACIÓN
 # =====================
@@ -211,6 +237,12 @@ async def say(interaction: discord.Interaction, texto: str):
 @client.tree.command(name="gmfl", description="Canal de Gonza MFL")
 async def gmfl(interaction: discord.Interaction):
     await interaction.response.send_message("https://www.youtube.com/@gonzamfl")
+
+@client.tree.command(name="monitor", description="Monitor que usa Gonza MFL")
+async def gmfl(interaction: discord.Interaction):
+    await interaction.response.send_message("Flatron W1953S 75hz (Muy humilde lo se)")
+
+
 
 
 client.run(os.getenv("TOKEN"))
