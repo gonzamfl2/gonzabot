@@ -151,14 +151,6 @@ async def userinfo(interaction: discord.Interaction, user: discord.Member):
         f"👤 {user}\nID: {user.id}\nSe unió: {user.joined_at}"
     )
 
-@client.tree.command(name="memide", description="¿Cuanto te mide?")
-@app_commands.describe(usuario="Usuario")
-async def memide(interaction: discord.Interaction, usuario: discord.Member):
-    medida = random.randint(0, 30)
-
-    await interaction.response.send_message(
-        f"📏 A {usuario.mention} le mide **{medida} cm**."
-    )
 
 
 @client.tree.command(name="serverinfo", description="Info del servidor")
@@ -249,6 +241,19 @@ async def say(interaction: discord.Interaction, texto: str):
     texto,
     allowed_mentions=discord.AllowedMentions.none()
 )
+
+@client.tree.command(name="memide", description="¿Cuanto te mide?")
+@app_commands.describe(usuario="Usuario a medir")
+async def memide(interaction: discord.Interaction, usuario: discord.Member = None):
+    if usuario is None:
+        usuario = interaction.user
+
+    medida = random.randint(5, 20)
+
+    await interaction.response.send_message(
+        f"A {usuario.mention} le mide **{medida} cm** 📏"
+
+
 
 @client.tree.command(name="gmfl", description="Canal de Gonza MFL")
 async def gmfl(interaction: discord.Interaction):
