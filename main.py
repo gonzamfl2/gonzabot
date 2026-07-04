@@ -119,6 +119,12 @@ async def time(interaction: discord.Interaction):
     now = datetime.datetime.now()
     await interaction.response.send_message(f"🕒 {now.strftime('%H:%M:%S')}")
 
+
+@client.tree.command(name="banana")
+async def banana(interaction: discord.Interaction):
+    cm = random.randint(5,20)
+    await interaction.response.send_message("La banana de {user.mention} mide {cm}cm")
+
 @client.tree.command(name="avatar", description="Ver avatar")
 async def avatar(interaction: discord.Interaction, user: discord.Member):
     await interaction.response.send_message(user.display_avatar.url)
