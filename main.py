@@ -120,11 +120,6 @@ async def time(interaction: discord.Interaction):
     await interaction.response.send_message(f"🕒 {now.strftime('%H:%M:%S')}")
 
 
-@client.tree.command(name="memide")
-async def memide(interaction: discord.Interaction):
-    cm = random.randint(5,20)
-    await interaction.response.send_message("A {user.mention} le mide {cm}cm")
-
 @client.tree.command(name="avatar", description="Ver avatar")
 async def avatar(interaction: discord.Interaction, user: discord.Member):
     await interaction.response.send_message(user.display_avatar.url)
