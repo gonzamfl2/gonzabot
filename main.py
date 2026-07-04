@@ -120,10 +120,10 @@ async def time(interaction: discord.Interaction):
     await interaction.response.send_message(f"🕒 {now.strftime('%H:%M:%S')}")
 
 
-@client.tree.command(name="banana")
-async def banana(interaction: discord.Interaction):
+@client.tree.command(name="memide")
+async def memide(interaction: discord.Interaction):
     cm = random.randint(5,20)
-    await interaction.response.send_message("La banana de {user.mention} mide {cm}cm")
+    await interaction.response.send_message("A {user.mention} le mide {cm}cm")
 
 @client.tree.command(name="avatar", description="Ver avatar")
 async def avatar(interaction: discord.Interaction, user: discord.Member):
@@ -150,6 +150,16 @@ async def userinfo(interaction: discord.Interaction, user: discord.Member):
     await interaction.response.send_message(
         f"👤 {user}\nID: {user.id}\nSe unió: {user.joined_at}"
     )
+
+@client.tree.command(name="memide", description="¿Cuanto te mide?")
+@app_commands.describe(usuario="Usuario")
+async def memide(interaction: discord.Interaction, usuario: discord.Member):
+    medida = random.randint(0, 30)
+
+    await interaction.response.send_message(
+        f"📏 A {usuario.mention} le mide **{medida} cm**."
+    )
+
 
 @client.tree.command(name="serverinfo", description="Info del servidor")
 async def serverinfo(interaction: discord.Interaction):
